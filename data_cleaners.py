@@ -484,3 +484,7 @@ def update_data_points(col_mapping_changes, ColDataAccumulation,job_id):
         myquery = { "Original_Name": k,'Job Id': job_id }
         newvalues = { "$set": { "Mapped_Name": v,"Match_Probalility": 1,"Matched_Method": "Manual Input" } }
         ColDataAccumulation.update_one(myquery, newvalues)
+def update_ColMap(col_mapping_changes, ColumMap,job_id):
+
+    for k,v in col_mapping_changes.items():
+        ColumMap.insert_one({'original_name' : k,'mapped_names' : v,'job_id' : job_id})

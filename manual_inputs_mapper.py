@@ -21,40 +21,6 @@ ColumMap= db['Column Mapping Collection']
 ColDataAccumulation= db['ColDataAccumulation Test']
 
 
-#2. Input data quality check
-def checkPostedData(postedData, functionName):
-    if (functionName == "add"):
-        if "x" not in postedData or "y" not in postedData:
-            return 301
-        else:
-            return 200
-
-#API outputs
-## mapped_name list
-## match probalility
-## data types
-## Data size
-## Des filed name
-## EDM table/ Field name
-## Req/ # OP
-## Description
-
-## 3. Declare all variabes
-mapped_label=[]
-
-
-label= []
-job_id = None
-region = None
-col_name= []
-dist_col_vals= []
-suggested_label=[]
-
-curr_dict={}
-
-mapping_Result=[]
-
-
 class Manual_Inputs_Map(Resource):
     def post(self):
         #Step 1: Get posted data from developers:
@@ -83,7 +49,7 @@ class Manual_Inputs_Map(Resource):
 
         #Update MongoDB
         data_cleaners.update_data_points(col_mapping_changes, ColDataAccumulation,JOB_ID)
-
+        data_cleaners.update_ColMap(col_mapping_changes, ColumMap,JOB_ID)
         #Dictionary look up
 
         #mapping_Result = data_cleaners.column_mapper_mongo(col_data,job_id)

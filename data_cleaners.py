@@ -10,6 +10,7 @@ import numpy as np
 import datetime
 import re
 import pymongo
+import copy
 from tinydb import TinyDB, Query, where
 pd.options.display.float_format = '{:,.2f}'.format
 #load the database
@@ -220,7 +221,7 @@ def manual_field_mapping(df,col_mapping,job_id):
     for key, value in col_mapping.items():
         if len(value)>0:
             table.insert({'original_name': key, 'mapped_names': value, 'job_id' : job_id})
-    return
+    return col_mapping
 
 #############################################
 ### PRODUCE THE RMS FILES
@@ -360,8 +361,10 @@ def column_mapper_mongo(col_data,job_id):
         list2=[]
         totalList=[]
         jobID=[]
+
         for document in ColumMap.find({"original_name" : col_entry['name']}):
             list1.append(document)
+
         for e in list1:
             totalList+=e["mapped_names"]
             jobID.append(e["job_id"])
@@ -378,3 +381,106 @@ def column_mapper_mongo(col_data,job_id):
                 #add the entry to the results
             results_mongo[i][col_entry['name']] = list2[i]['mapped_names']
     return results_mongo
+
+
+def manual_field_mapping_mongo(df,col_mapping,job_id):
+    new_col_mapping = copy.deepcopy(col_mapping)
+
+    #create if empty
+    if(len(col_mapping)==0):
+        print("creating new mapping")
+        new_col_mapping=get_df_dict(df)
+    #with pd.option_context('display.max_rows', 10, 'display.max_columns', 99999):
+        #display(df)
+
+    #Now we save the col mapping in the database
+    #column_table is a collection in Mongo
+    ##column_table = db.table('columns')
+    ##Column = Query()
+
+    #remove the old mapping
+    ##table = db.table('columns')
+    ##table.remove(where('job_id') == job_id)
+    myquery = { "job_id": job_id }
+    ColumMap.delete_one(myquery)
+
+    new_col_mapping_copy = copy.deepcopy(new_col_mapping)
+
+    for key, value in new_col_mapping_copy.items():
+        if len(value)>0:
+            #table.insert({'original_name': key, 'mapped_names': value, 'job_id' : job_id})
+            ColumMap.insert_one({'original_name': key, 'mapped_names': value, 'job_id' : job_id})
+        else:
+            #check if we have a value we can populate
+            #matched = column_table.search( Column.original_name == key )
+            matched_list=[]
+            for document in ColumMap.find({"original_name" : key}):
+                matched_list.append(document)
+            #add these to the dict
+            #print(f"key={key} matched={matched}")
+
+            for i in range(len(matched_list)):
+                #add the entry to the results if not already in
+                for col_name in matched_list[i]['mapped_names']:
+                    #print(f"key={key} col_name={col_name}")
+                    if (col_name not in new_col_mapping[key]):
+                        new_col_mapping[key].append(col_name)
+                    #print(new_col_mapping[key])
+
+    #display(new_col_mapping)
+    #return new_col_mapping
+    return new_col_mapping
+def get_df_dict(df):
+    return dict(zip(list(df.columns),len(list(df.columns))*[[]]))
+######################################
+###New set of methods#####
+######################################
+def sum_Unique_List(a):
+    total_List=[]
+    for e in a:
+        total_List+=e
+    return list(set(total_List))
+
+def manual_field_look_up(col_mapping,ColumMap):
+    for k,v in col_mapping.items():
+        value_map=[]
+        for document in ColumMap.find({"original_name" : k}):
+            sum_list=[]
+            sum_list.append(document["mapped_names"])
+            value_map=sum_Unique_List(sum_list)
+
+        col_mapping[k]=list(set(value_map+v))
+    return col_mapping
+def new_data_points(df, ColDataAccumulation,job_id):
+    col_mapping= get_df_dict(df)
+    manual_field_look_map= manual_field_look_up(col_mapping,ColumMap)
+    for k,v in manual_field_look_map.items():
+
+        distint_Values = df[k].unique().tolist()
+
+        #currCol= ColumnObject(k)
+        #currCol.setDistinct_Values(distint_Values)
+        #currCol.setMapped_Name(v)
+        if len(v)== 0:
+            #currCol.setMatch_Probalility(0)
+            #currCol.setMatched_Method(None)
+
+            ColDataAccumulation.insert_one({'Original_Name': k, 'Mapped_Name': v, 'Match_Probalility': 0, 'Distinct_Values': distint_Values, 'Matched_Method': None, "Job Id": job_id})
+        else:
+            ColDataAccumulation.insert_one({'Original_Name': k, 'Mapped_Name': v, 'Match_Probalility': 1, 'Distinct_Values': distint_Values, 'Matched_Method': "History look-up", "Job Id": job_id})
+
+def subtract_col_mapping(manual_col_mapping, old_col_mapping):
+    result_dict=[]
+    for k1, v1 in manual_col_mapping.items():
+        for k2, v2 in old_col_mapping.items():
+            cur_dict={}
+            if k1==k2:
+                cur_dict[k1]=[item for item in v1 if item not in v2]
+    return cur_dict
+
+def update_data_points(col_mapping_changes, ColDataAccumulation,job_id):
+
+    for k,v in col_mapping_changes.items():
+        myquery = { "Original_Name": k,'Job Id': job_id }
+        newvalues = { "$set": { "Mapped_Name": v,"Match_Probalility": 1,"Matched_Method": "Manual Input" } }
+        ColDataAccumulation.update_one(myquery, newvalues)

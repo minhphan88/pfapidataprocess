@@ -59,11 +59,11 @@ class Item():
 class col_list(Resource):
 
     def get(self):
-        e=Item()
+        curr_item=Item()
         retMap = {
-            'Column Name List': e.col_list,#_json,
-            'Descritive Name List': e.descriptive_name_list,#_json,
-            'Full List': e.full_list,#_json,
+            'Column Name List': curr_item.col_list,#_json,
+            'Descritive Name List': curr_item.descriptive_name_list,#_json,
+            'Full List': curr_item.full_list,#_json,
             'Message': 200
         }
         return jsonify(retMap)

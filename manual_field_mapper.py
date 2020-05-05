@@ -40,19 +40,6 @@ def checkPostedData(postedData, functionName):
 ## Description
 
 ## 3. Declare all variabes
-mapped_label=[]
-
-
-label= []
-job_id = None
-region = None
-col_name= []
-dist_col_vals= []
-suggested_label=[]
-
-curr_dict={}
-
-mapping_Result=[]
 
 
 class Manual_field_Map(Resource):

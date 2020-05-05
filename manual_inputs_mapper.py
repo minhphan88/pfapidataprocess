@@ -48,8 +48,8 @@ class Manual_Inputs_Map(Resource):
 
 
         #Update MongoDB
-        data_cleaners.update_data_points(col_mapping_changes, ColDataAccumulation,JOB_ID)
-        data_cleaners.update_ColMap(col_mapping_changes, ColumMap,JOB_ID)
+        data_cleaners.update_data_points(col_mapping_changes, ColDataAccumulation,job_id)
+        data_cleaners.update_ColMap(col_mapping_changes, ColumMap,job_id)
         #Dictionary look up
 
         #mapping_Result = data_cleaners.column_mapper_mongo(col_data,job_id)

@@ -37,11 +37,12 @@ class Manual_Inputs_Map(Resource):
         ## 4 ##
         # read all the input data
 
-        old_col_mapping=postedData["Old Column Map"]
+        #old_col_mapping=postedData["Old Column Map"]
         manual_col_mapping=postedData["Manual Column Map"]
         job_id = postedData["Job ID"]
 
         #Create a map that holds only manual inputs
+        old_col_mapping=data_cleaners.manual_field_look_up(data_cleaners.empty_col_mapping(manual_col_mapping),ColumMap)
         col_mapping_changes=data_cleaners.subtract_col_mapping(manual_col_mapping, old_col_mapping)
 
 

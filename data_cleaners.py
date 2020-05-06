@@ -458,9 +458,7 @@ def new_data_points(df, ColDataAccumulation,job_id):
 
         distint_Values = df[k].unique().tolist()
 
-        #currCol= ColumnObject(k)
-        #currCol.setDistinct_Values(distint_Values)
-        #currCol.setMapped_Name(v)
+        ColDataAccumulation.delete_one({'Original_Name': k,"Job Id": job_id})
         if len(v)== 0:
             #currCol.setMatch_Probalility(0)
             #currCol.setMatched_Method(None)
@@ -488,3 +486,8 @@ def update_ColMap(col_mapping_changes, ColumMap,job_id):
 
     for k,v in col_mapping_changes.items():
         ColumMap.insert_one({'original_name' : k,'mapped_names' : v,'job_id' : job_id})
+
+def empty_col_mapping(manual_col_mapping):
+    for k,v in manual_col_mapping.items():
+        manual_col_mapping[k]=[]
+    return manual_col_mapping

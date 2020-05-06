@@ -71,7 +71,7 @@ class Manual_Inputs_Map(Resource):
 
         retMap={
             'Message':200,
-            'New Column Mapping': manual_col_mapping#,
+            'Manual Column Mapping': manual_col_mapping#,
             #'Old mapping':old_col_mapping
             ##'Manual field mapping': manual_field_Map_Result#details_List
             #'Manual field mapping_2': manual_field_Map_Result

@@ -43,29 +43,17 @@ class Manual_Inputs_Map(Resource):
         job_id = postedData["Job ID"]
 
         #Create a map that holds only manual inputs
-        #old_col_mapping=data_cleaners.manual_field_look_up(data_cleaners.empty_col_mapping(manual_col_mapping),ColumMap)
+        old_col_mapping=data_cleaners.manual_field_look_up(data_cleaners.empty_col_mapping(manual_col_mapping),ColumMap)
 
-        #col_mapping_changes=data_cleaners.subtract_col_mapping(manual_col_mapping, old_col_mapping)
+        col_mapping_changes=data_cleaners.subtract_col_mapping(manual_col_mapping, old_col_mapping)
 
 
 
 
         #Update MongoDB
-        #data_cleaners.update_data_points(col_mapping_changes, ColDataAccumulation,job_id)
-        #data_cleaners.update_ColMap(col_mapping_changes, ColumMap,job_id)
+        data_cleaners.update_data_points(col_mapping_changes, ColDataAccumulation,job_id)
+        data_cleaners.update_ColMap(col_mapping_changes, ColumMap,job_id)
         #Dictionary look up
-
-        #mapping_Result = data_cleaners.column_mapper_mongo(col_data,job_id)
-        #mapping_Result = data_cleaners.column_mapper(col_data,job_id)
-
-        #######list= mapping_Result[0][col_nßame]####for debug only
-        # Return all the matches with descritive values
-        # Each match will return an object of Colum_Detail_Class
-        #curr_List= mapping_Result[0][col_name]
-        #details_List=[]
-        #for e in curr_List:
-            #detail_Oject= Colum_Detail_Class.Column_details(e)
-            #details_List.append(detail_Oject.getReturnDict())
 
         #Create a return map
 

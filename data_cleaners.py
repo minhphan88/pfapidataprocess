@@ -451,9 +451,11 @@ def manual_field_look_up(col_mapping,ColumMap):
 
         col_mapping[k]=list(set(value_map+v))
     return col_mapping
+
 def new_data_points(df, ColDataAccumulation,job_id):
     col_mapping= get_df_dict(df)
     manual_field_look_map= manual_field_look_up(col_mapping,ColumMap)
+
     for k,v in manual_field_look_map.items():
 
         distint_Values = df[k].unique().tolist()
@@ -473,7 +475,7 @@ def subtract_col_mapping(manual_col_mapping, old_col_mapping):
         for k2, v2 in old_col_mapping.items():
             cur_dict={}
             if k1==k2:
-                cur_dict[k1]=[item for item in v1 if item not in v2]
+                cur_dict[k1]=v1
     return cur_dict
 
 def update_data_points(col_mapping_changes, ColDataAccumulation,job_id):
@@ -485,6 +487,7 @@ def update_data_points(col_mapping_changes, ColDataAccumulation,job_id):
 def update_ColMap(col_mapping_changes, ColumMap,job_id):
 
     for k,v in col_mapping_changes.items():
+        ColumMap.delete_many({'original_name' : k,'job_id' : job_id})
         ColumMap.insert_one({'original_name' : k,'mapped_names' : v,'job_id' : job_id})
 
 def empty_col_mapping(col_mapping):

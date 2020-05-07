@@ -41,9 +41,10 @@ class Manual_Inputs_Map(Resource):
         manual_col_mapping=postedData["Manual Column Map"]
 
         job_id = postedData["Job ID"]
-
+        empty_col_mapping= manual_col_mapping.copy()
         #Create a map that holds only manual inputs
-        old_col_mapping=data_cleaners.manual_field_look_up(data_cleaners.empty_col_mapping(manual_col_mapping),ColumMap)
+        empty_col_mapping=data_cleaners.empty_col_mapping(empty_col_mapping)
+        old_col_mapping=data_cleaners.manual_field_look_up(empty_col_mapping,ColumMap)
 
         col_mapping_changes=data_cleaners.subtract_col_mapping(manual_col_mapping, old_col_mapping)
 
@@ -54,7 +55,8 @@ class Manual_Inputs_Map(Resource):
         data_cleaners.update_data_points(col_mapping_changes, ColDataAccumulation,job_id)
         data_cleaners.update_ColMap(col_mapping_changes, ColumMap,job_id)
         #Dictionary look up
-
+        #print(manual_col_mapping)
+        #print(col_mapping_changes)
         #Create a return map
 
         retMap={

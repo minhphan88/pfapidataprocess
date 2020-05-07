@@ -487,7 +487,8 @@ def update_ColMap(col_mapping_changes, ColumMap,job_id):
     for k,v in col_mapping_changes.items():
         ColumMap.insert_one({'original_name' : k,'mapped_names' : v,'job_id' : job_id})
 
-def empty_col_mapping(manual_col_mapping):
-    for k,v in manual_col_mapping.items():
-        manual_col_mapping[k]=[]
-    return manual_col_mapping
+def empty_col_mapping(col_mapping):
+    a=col_mapping
+    for k,v in a.items():
+        a[k]=[]
+    return a

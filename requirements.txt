@@ -10,3 +10,4 @@ pandas
 tinydb
 pymongo
 nltk
+sklearn

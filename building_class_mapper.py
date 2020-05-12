@@ -31,7 +31,7 @@ class Building_Mapper(Resource):
         job_id = postedData["Job ID"]
 
         #mapping to historical list
-        #empty_sample= mapping_ultility_functions.empty_col_mapping(building_map)
+        empty_sample= mapping_ultility_functions.empty_col_mapping(building_map)
         #resultMap_v1=mapping_ultility_functions.historical_building_map(empty_sample,BuildingClassMap_Test)
 
         #sucessful rate cal
@@ -46,7 +46,7 @@ class Building_Mapper(Resource):
 
         retMap={
             'Message':200,
-            'Suggested Building Map': building_map
+            'Suggested Building Map': empty_sample
             #'Sucess Rate':1-(i/j)
         }
 

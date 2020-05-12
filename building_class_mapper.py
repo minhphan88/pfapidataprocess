@@ -31,23 +31,23 @@ class Building_Mapper(Resource):
         job_id = postedData["Job ID"]
 
         #mapping to historical list
-        empty_sample= mapping_ultility_functions.empty_col_mapping(building_map)
-        resultMap_v1=mapping_ultility_functions.historical_building_map(empty_sample,BuildingClassMap_Test)
+        #empty_sample= mapping_ultility_functions.empty_col_mapping(building_map)
+        #resultMap_v1=mapping_ultility_functions.historical_building_map(empty_sample,BuildingClassMap_Test)
 
         #sucessful rate cal
-        i=0
-        j=0
-        for k,v in resultMap_v1.items():
-            j+=1
-            if len(v)==0:
-                i+=1
+        # i=0
+        # j=0
+        # for k,v in resultMap_v1.items():
+        #     j+=1
+        #     if len(v)==0:
+        #         i+=1
 
         #print(building_map)
 
         retMap={
             'Message':200,
-            'Suggested Building Map': resultMap_v1,
-            'Sucess Rate':1-(i/j)
+            'Suggested Building Map': building_map
+            #'Sucess Rate':1-(i/j)
         }
 
         return jsonify(retMap)

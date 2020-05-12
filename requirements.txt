@@ -9,3 +9,5 @@ datetime
 pandas
 tinydb
 pymongo
+nltk
+difflib

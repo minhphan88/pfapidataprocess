@@ -38,7 +38,8 @@ class Building_Mapper(Resource):
 
         retMap={
             'Message':200,
-            'Suggested Building Map': resultMap_v1
+            'Suggested Building Map': resultMap_v1,
+            'last': "oh NO"
         }
         #sucessful rate cal
         # i=0

@@ -7,4 +7,3 @@ tinydb
 pymongo
 nltk
 sklearn
-wheels

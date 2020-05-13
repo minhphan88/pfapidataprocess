@@ -33,6 +33,7 @@ stages:
     pool:
       vmImage: $(vmImageName)
     steps:
+<<<<<<< HEAD
     - task: UsePythonVersion@0
       inputs:
         versionSpec: '$(pythonVersion)'
@@ -41,6 +42,16 @@ stages:
     - script: |
         python -m venv antenv
         source antenv/bin/activate
+=======
+    - uses: actions/checkout@master
+
+    - name: Set up Python version
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.6'
+    - name: Install dependencies
+      run: |
+>>>>>>> eb09156c31f500a541cf82c35d90d14cda4afebd
         python -m pip install --upgrade pip setuptools wheel
         pip install setup
         pip install -r requirements.txt

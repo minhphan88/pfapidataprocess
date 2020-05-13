@@ -495,3 +495,5 @@ def empty_col_mapping(col_mapping):
     for k,v in a.items():
         a[k]=[]
     return a
+def fake_function():
+    return 1

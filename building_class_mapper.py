@@ -32,21 +32,14 @@ class Building_Mapper(Resource):
 
         #mapping to historical list
         empty_sample= mapping_ultility_functions.empty_col_mapping(building_map)
-        #resultMap_v1=mapping_ultility_functions.historical_building_map(empty_sample,BuildingClassMap_Test)
+        resultMap_v1=mapping_ultility_functions.historical_building_map(empty_sample,BuildingClassMap_Test)
 
-        try:
-            resultMap_v1=mapping_ultility_functions.historical_building_map(empty_sample,BuildingClassMap_Test)
-            retMap={
-                'Message':200,
-                'Suggested Building Map': resultMap_v1
-                #'Sucess Rate':1-(i/j)
-            }
-        except Exception, e:
-            error=str(e)
-            retMap={
-                'Message':200,
-                'Suggested Building Map': error
-            }
+
+
+        retMap={
+            'Message':200,
+            'Suggested Building Map': resultMap_v1
+        }
         #sucessful rate cal
         # i=0
         # j=0
@@ -57,6 +50,6 @@ class Building_Mapper(Resource):
 
         #print(building_map)
 
-        
+
 
         return jsonify(retMap)

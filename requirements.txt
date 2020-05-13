@@ -5,5 +5,6 @@ datetime
 pandas
 tinydb
 pymongo
+wheel
 nltk
 sklearn

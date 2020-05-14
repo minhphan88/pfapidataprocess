@@ -1,4 +1,4 @@
-
+setuptools
 Flask==1.0.2
 flask-restful
 datetime

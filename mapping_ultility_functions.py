@@ -1,4 +1,5 @@
 import nltk
+nltk.download()
 from nltk.tokenize import RegexpTokenizer
 from nltk.stem import WordNetLemmatizer,PorterStemmer
 #from nltk.corpus import stopwords

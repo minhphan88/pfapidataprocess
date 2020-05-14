@@ -24,6 +24,7 @@ jobs:
       uses: azure/appservice-build@v1
       with:
         platform: python
+      env:
         GITHUB_WORKSPACE: '/home/runner/work/pdfapidataprocessing/'
         POST_BUILD_COMMAND: 'python -m nltk.downloader all'
 

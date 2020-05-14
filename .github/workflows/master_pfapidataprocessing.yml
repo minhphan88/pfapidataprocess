@@ -20,13 +20,14 @@ jobs:
       with:
         python-version: '3.8'
 
-    - name: Build using AppService-Build
-      uses: azure/appservice-build@v1
-      with:
-        platform: python
-
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip setuptools wheel
+        pip install -r requirements.txt
+        python -m nltk.downloader all
+        
     - name: 'Deploy to Azure Web App'
-      uses: azure/webapps-deploy@v1
+      uses: azure/webapps-deploy@v2
       with:
         app-name: 'pfapidataprocessing'
         slot-name: 'production'

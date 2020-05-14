@@ -23,7 +23,7 @@ jobs:
       uses: azure/appservice-build@v1
       with:
         platform: python
-
+      PRE_BUILD_COMMAND: python -m pip install --upgrade pip setuptools wheel
 
 
     - name: 'Deploy to Azure Web App'

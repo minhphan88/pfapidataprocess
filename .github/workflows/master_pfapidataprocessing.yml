@@ -2,11 +2,11 @@
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
 name: Build and deploy Python app to Azure Web App - pfapidataprocessing
+env: GITHUB_WORKSPACE: '/home/runner/work/pfapidataprocess/pfapidataprocess'
 on:
   push:
     branches:
       - master
-env: GITHUB_WORKSPACE: '/home/runner/work/pfapidataprocess/pfapidataprocess'
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest

@@ -26,8 +26,7 @@ jobs:
       with:
         platform: python
       env:
-        ${GITHUB_WORKSPACE:'/home/runner/work/pfapidataprocess/pfapidataprocess'}
-
+        "${GITHUB_WORKSPACE}/home/runner/work/pfapidataprocess/pfapidataprocess"
         POST_BUILD_COMMAND: 'python -m nltk.downloader all'
     - name: 'Deploy to Azure Web App'
       uses: azure/webapps-deploy@v1

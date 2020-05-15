@@ -23,7 +23,7 @@ jobs:
 
     - name: Build using AppService-Build
 
-      uses: azure/appservice-build@v1 > ${GITHUB_WORKSPACE}:'/home/runner/work/pfapidataprocess/pfapidataprocess'
+      uses: azure/appservice-build@v1 > ${GITHUB_WORKSPACE}/.env.
       with:
         platform: python
       env:

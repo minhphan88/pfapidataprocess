@@ -11,7 +11,7 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    env:  GITHUB_WORKSPACE = '/home/runner/work/pfapidataprocess/pfapidataprocess'
+    ${GITHUB_WORKSPACE:'/home/runner/work/pfapidataprocess/pfapidataprocess'}
     steps:
     - uses: actions/checkout@master
 

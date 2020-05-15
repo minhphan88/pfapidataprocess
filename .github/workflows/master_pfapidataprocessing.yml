@@ -23,10 +23,9 @@ jobs:
 
     - name: Build using AppService-Build
 
-      uses: azure/appservice-build@v1
+      uses: azure/appservice-build@v1 > "${GITHUB_WORKSPACE}/home/runner/work/pfapidataprocess/pfapidataprocess"
       with:
         platform: python
-        "${GITHUB_WORKSPACE}/home/runner/work/pfapidataprocess/pfapidataprocess"
       env:
         POST_BUILD_COMMAND: 'python -m nltk.downloader all'
     - name: 'Deploy to Azure Web App'

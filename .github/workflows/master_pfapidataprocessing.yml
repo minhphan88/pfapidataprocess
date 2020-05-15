@@ -2,17 +2,14 @@
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
 name: Build and deploy Python app to Azure Web App - pfapidataprocessing
-
 on:
   push:
     branches:
       - master
-
+env: GITHUB_WORKSPACE: '/home/runner/work/pfapidataprocess/pfapidataprocess'
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
-
     steps:
     - uses: actions/checkout@master
 
@@ -23,12 +20,11 @@ jobs:
 
     - name: Build using AppService-Build
 
-      uses: azure/appservice-build@v1 
+      uses: azure/appservice-build@v1
       with:
         platform: python
       env:
-        GITHUB_WORKSPACE: '/home/runner/work/pfapidataprocess/pfapidataprocess'
-        POST_BUILD_COMMAND: 'python -m nltk.downloader all'
+        POST_BUILD_COMMAND: 'cd /root/nltk_data && python -m nltk.downloader all'
     - name: 'Deploy to Azure Web App'
       uses: azure/webapps-deploy@v1
       with:

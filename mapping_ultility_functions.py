@@ -55,3 +55,5 @@ def historical_building_map(empty_sample,BuildingClassMap_Test):
                 v.append(doc["Code"])
 
     return empty_sample
+
+##########################################

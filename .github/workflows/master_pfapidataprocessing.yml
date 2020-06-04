@@ -2,7 +2,7 @@
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
 name: Build and deploy Python app to Azure Web App - pfapidataprocessing
-env: GITHUB_WORKSPACE: '/home/runner/work/pfapidataprocess/pfapidataprocess'
+
 on:
   push:
     branches:
@@ -23,8 +23,7 @@ jobs:
       uses: azure/appservice-build@v1
       with:
         platform: python
-      env:
-        POST_BUILD_COMMAND: 'cd /root/nltk_data && python -m nltk.downloader all'
+
     - name: 'Deploy to Azure Web App'
       uses: azure/webapps-deploy@v1
       with:

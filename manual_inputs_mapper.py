@@ -54,11 +54,8 @@ class Manual_Inputs_Map(Resource):
         #Update MongoDB
         data_cleaners.update_data_points(col_mapping_changes, ColDataAccumulation,job_id)
         data_cleaners.update_ColMap(col_mapping_changes, ColumMap,job_id)
-        print(col_mapping_changes)
-        #Dictionary look up
-        #print(manual_col_mapping)
-        #print(col_mapping_changes)
-        #Create a return map
+        #Update Current col_mapping based on Job-ID
+        
 
         retMap={
             'Message':200,
